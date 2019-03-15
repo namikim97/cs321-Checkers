@@ -1,7 +1,7 @@
 // checkers.cpp
 // 
 // Created: 13 Mar 2019
-// Updated: 13 Mar 2019
+// Updated: 15 Mar 2019
 //
 // class Checkers
 
@@ -129,7 +129,7 @@ start:
 	else
 	{
 		cout << "Um... Enter Again ........";
-		//delay(500);
+		delay(500);
 		goto start;
 	}
 
@@ -183,6 +183,9 @@ start:
 	cout << " 1 (North-West Diagonal), 2 (North-East Diagonal) " << endl;
 	cout << " 3 (South-West Diagonal), 4 (South-East Diagonal) " ;
 	cin >> dir;
+
+	PlrToken = '@';
+	OppToken = '!';
 
 	// North-West Diagonal
 	if(dir == 1)
@@ -377,19 +380,27 @@ done1:
 	delay(500);
 	Plr = 0;
 	Opp = 0;
+	PlrToken = '@';
+	OppToken = '!';
 
 	for(i = 0; i < 8; i++)
 	{
 		for(j = 0; j < 8; j++)
 		{
-			Plr++;
+			if(Board[i][j] == PlrToken)
+			{
+				Plr++;
+			}
 		}
 	}
 	for(i = 0; i < 8; i++)
 	{
 		for(j = 0; j < 8; j++)
 		{
-			Opp++;
+			if(Board[i][j] == OppToken)
+			{
+				Opp++;
+			}
 		}
 	}
 
@@ -454,6 +465,9 @@ Again:
 		dir = 4;
 	}
 
+	PlrToken = '@';
+	OppToken = '!';
+
 	//North-West Diagonal
 	if(dir == 1)
 	{
@@ -462,7 +476,7 @@ Again:
 			yolo++;
 			goto Again;
 		}
-		if(Board[Y-1][X-1] == PlrToken)
+		if(Board[Y-1][X-1] == OppToken)
 		{
 			yolo++;
 			goto Again;
@@ -631,6 +645,8 @@ done2:
 	delay(1000);
 	Plr = 0;
 	Opp = 0;
+	PlrToken = '@';
+	OppToken = '!';
 
 	for(i = 0; i < 8; i++)
 	{
