@@ -277,7 +277,6 @@ int gdriver = DETECT, gmode;
 
 	// Your Turn
 start:
-	//setbkcolor(BLACK);
 	clrscr();
     //The edges of the board
 	int boardEdge[] = { w - 7, borderLen,
@@ -490,8 +489,8 @@ start:
 	}
 
 	cout << "Which Direction do you want to move?" << endl;
-	cout << " 1 (North-West Diagonal), 2 (North-East Diagonal) " << endl;
-	cout << " 3 (South-West Diagonal), 4 (South-East Diagonal) " ;
+	cout << " 1 (North-West Diagonal),\n 2 (North-East Diagonal), " << endl;
+	cout << " 3 (South-West Diagonal),\n 4 (South-East Diagonal), " << endl;
 	cin >> dir;
 
 	// North-West Diagonal
@@ -683,7 +682,118 @@ start:
 	}
 
 done1:
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+clrscr();
+    //The edges of the board
 
+
+	setfillstyle(SOLID_FILL, BLACK);
+	fillpoly(5, boardEdge);
+	setfillstyle(SOLID_FILL, WHITE);
+
+	//Column A White Squares
+	tempP2 = p2 + squareLen;
+	tempP3 = p3 + squareLen;
+	for (int iiiiw = 0; iiiiw < 4; iiiiw++) {
+		int whiteSq[] = { p1, tempP2, p1, tempP3, p4, tempP3, p4, tempP2, p1, tempP2 };
+		fillpoly(5, whiteSq);
+		tempP2 = tempP2 + (2 * squareLen);
+		tempP3 = tempP3 + (2 * squareLen);
+	}
+
+	//Column B white squares
+	tempP1 = p1 + squareLen;
+	tempP4 = p4 + squareLen;
+	tempP2 = p2;
+	tempP3 = p3;
+	for (int bw = 0; bw < 4; bw++) {
+		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
+		fillpoly(5, whiteSq);
+		tempP2 = tempP2 + (2 * squareLen);
+		tempP3 = tempP3 + (2 * squareLen);
+	}
+
+
+	//Column C White Squares
+	tempP1 = p1 + (2 * squareLen);
+	tempP4 = p4 + (2 * squareLen);
+	tempP2 = p2 + squareLen;
+	tempP3 = p3 + squareLen;
+	for (int iiw = 0; iiw < 4; iiw++) {
+		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
+		fillpoly(5, whiteSq);
+		tempP2 = tempP2 + (2 * squareLen);
+		tempP3 = tempP3 + (2 * squareLen);
+	}
+
+	//Column D white squares
+	tempP1 = p1 + (3 * squareLen);
+	tempP4 = p4 + (3 * squareLen);
+	tempP2 = p2;
+	tempP3 = p3;
+	for (int bbbw = 0; bbbw < 4; bbbw++) {
+		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
+		fillpoly(5, whiteSq);
+		tempP2 = tempP2 + (2 * squareLen);
+		tempP3 = tempP3 + (2 * squareLen);
+	}
+
+	//Column E White Squares
+	tempP1 = p1 + (4 * squareLen);
+	tempP4 = p4 + (4 * squareLen);
+	tempP2 = p2 + squareLen;
+	tempP3 = p3 + squareLen;
+	for (int iiiw = 0; iiiw < 4; iiiw++) {
+		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
+		fillpoly(5, whiteSq);
+		tempP2 = tempP2 + (2 * squareLen);
+		tempP3 = tempP3 + (2 * squareLen);
+	}
+
+	//Column F white squares
+	tempP1 = p1 + (5 * squareLen);
+	tempP4 = p4 + (5 * squareLen);
+	tempP2 = p2;
+	tempP3 = p3;
+	for (int xxw = 0; xxw < 4; xxw++) {
+		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
+		fillpoly(5, whiteSq);
+		tempP2 = tempP2 + (2 * squareLen);
+		tempP3 = tempP3 + (2 * squareLen);
+	}
+
+	//Column G White Squares
+	tempP1 = p1 + (6 * squareLen);
+	tempP4 = p4 + (6 * squareLen);
+	tempP2 = p2 + squareLen;
+	tempP3 = p3 + squareLen;
+	for (int xw = 0; xw < 4; xw++) {
+		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
+		fillpoly(5, whiteSq);
+		tempP2 = tempP2 + (2 * squareLen);
+		tempP3 = tempP3 + (2 * squareLen);
+	}
+
+	//Column H white squares
+	tempP1 = p1 + (7 * squareLen);
+	tempP4 = p4 + (7 * squareLen);
+	tempP2 = p2;
+	tempP3 = p3;
+	for (int bbw = 0; bbw < 4; bbw++) {
+		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
+		fillpoly(5, whiteSq);
+		tempP2 = tempP2 + (2 * squareLen);
+		tempP3 = tempP3 + (2 * squareLen);
+	}
+
+
+    for (int qw = 0; qw < 8; qw++) {
+    	for (int erw = 0; erw < 8; erw++){
+			Board[qw][erw].draw();
+		}
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 	delay(500);
 	Plr = 0;
 	Opp = 0;
@@ -718,6 +828,8 @@ done1:
 	cout << endl << "Opponent's (" << OppToken << ") Turn ........";
 	delay(1000);
 Again:
+
+
 	if(limit == 15)
 	{
 		cout << endl << "Oppnent got confused .. ";
@@ -872,7 +984,7 @@ Again:
 		if(Board[Y+1][X-1].getColor() == 'x')
 		{
             Board[Y][X].setColor('x');
-			Board[++Y][--X].setColor('b');
+			Board[Y+1][X-1].setColor('b');
 			goto done2;
 		}
 		if(Board[Y+1][X-1].getColor() == 'r')
@@ -915,7 +1027,7 @@ Again:
 		if(Board[Y+1][X+1].getColor() == 'x')
 		{
             Board[Y][X].setColor('x');
-			Board[++Y][++X].setColor('b');
+			Board[Y+1][X+1].setColor('b');
 			goto done2;
 		}
 		if(Board[Y+1][X+1].getColor() == 'r')
