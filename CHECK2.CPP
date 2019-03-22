@@ -32,23 +32,40 @@ public:
 		_radius = radius;
 	}
 
-    char getColor(){
+	Checker(const Checker &other){
+		_color = other.getColor();
+		_x = other.getX();
+		_y = other.getY();
+		_radius = other.getRadius();
+		_isKing = other.getIsKing();
+	}
+
+	int getRadius() const{
+		return _radius;
+	}
+
+	int getIsKing() const{
+		return _isKing;
+	}
+
+    char getColor() const{
 	return _color;
     }
 
     void setColor(char color){
      _color = color;
     }
-	int getX() {
+	int getX() const {
 		return _x;
 	}
 
-	int getY() {
+	int getY() const {
 		return _y;
 	}
 
 	void setX(int x) {
 		_x = x;
+
 	}
 
 	void setY(int y) {
@@ -67,11 +84,17 @@ public:
 	void draw(){
 		if (_color == 'r'){
 			setfillstyle(SOLID_FILL, RED);
+			setcolor(RED);
 			circle(_x, _y, _radius);
-			floodfill(_x, _y, WHITE);
+			floodfill(_x, _y, RED); //////////////////////////////////////turned off for debugging
+			setcolor(WHITE); //////////////// probably don't need
 		}
 		else if (_color == 'b'){
+			setcolor(WHITE);
 			circle(_x, _y, _radius);
+		}
+		else if (_color == 'x'){
+			setcolor(WHITE);
 		}
 	}
 
@@ -85,13 +108,21 @@ private:
 
 };
 
-void swapCheckers(Checker checker1, Checker checker2){
-    int x = checker1.getX();
-    int y = checker1.getY();
-    checker1.setX(checker2.getX());
-    checker1.setY(checker2.getY());
-    checker2.setX(x);
-    checker2.setY(y);
+
+
+void swapCheckers(Checker &checker1, Checker &checker2){
+	//Checker temp = checker1;
+	//checker1 = checker2;
+//	checker2 = temp;
+    //int x = checker1.getX();
+    //int y = checker1.getY();
+   // checker1.setX(checker2.getX());
+    //checker1.setY(checker2.getY());
+   // checker2.setX(x);
+   // checker2.setY(y);
+   char color = checker1.getColor();
+   checker1.setColor(checker2.getColor());
+   checker2.setColor(color);
 }
 
 void main()
@@ -112,7 +143,7 @@ int gdriver = DETECT, gmode;
 
 	
 
-	Checker checkers[24];
+	Checker checkers[32];
 	int x1 = w - boardSideLen + (squareLen/2);
 	int y1 = h - borderLen - (squareLen/2) - 8;
 
@@ -141,11 +172,30 @@ int gdriver = DETECT, gmode;
 	}
 
 	x1 = w - boardSideLen + (squareLen/2);
+	y1 = h - borderLen - (3*squareLen) - (squareLen/2) - 8;
+	for (int as = 0; as < 4; as++){
+		Checker chec0 = Checker('x', x1, y1, squareLen * 0.45);
+		x1 = x1 + (2*squareLen);
+		checkers[as+12] = chec0;
+		//chec0.draw();
+	}
+	x1 = w - boardSideLen + squareLen + (squareLen/2);
+	y1 = h - borderLen - (4*squareLen) - (squareLen/2) - 8;
+	for (int sas = 0; sas < 4; sas++){
+		Checker chec0 = Checker('x', x1, y1, squareLen * 0.45);
+		x1 = x1 + (2*squareLen);
+		checkers[sas+16] = chec0;
+		//chec0.draw();
+	}
+
+
+
+	x1 = w - boardSideLen + (squareLen/2);
 	y1 = h - borderLen - (5*squareLen) - (squareLen/2) - 8;
 	for (int s = 0; s < 4; s++){
 		Checker chec0 = Checker('b', x1, y1, squareLen * 0.45);
 		x1 = x1 + (2*squareLen);
-		checkers[s+12] = chec0;
+		checkers[s+20] = chec0;
 		//chec0.draw();
 	}
 	x1 = w - boardSideLen + squareLen + (squareLen/2);
@@ -153,7 +203,7 @@ int gdriver = DETECT, gmode;
 	for (int ss = 0; ss < 4; ss++){
 		Checker chec0 = Checker('b', x1, y1, squareLen * 0.45);
 		x1 = x1 + (2*squareLen);
-		checkers[ss+16] = chec0;
+		checkers[ss+24] = chec0;
 		//chec0.draw();
 	}
 	x1 = w - boardSideLen + (squareLen/2);
@@ -161,7 +211,7 @@ int gdriver = DETECT, gmode;
 	for (int sss = 0; sss < 4; sss++){
 		Checker chec0 = Checker('b', x1, y1, squareLen * 0.45);
 		x1 = x1 + (2*squareLen);
-		checkers[sss+20] = chec0;
+		checkers[sss+28] = chec0;
 		//chec0.draw();
 	}
 
@@ -205,12 +255,17 @@ int gdriver = DETECT, gmode;
 	}
 	delay(1000);
 
-	Board[0][0] = checkers[20]; Board[0][2] = checkers[21];
-	Board[0][4] = checkers[22]; Board[0][6] = checkers[23];
-	Board[1][1] = checkers[16]; Board[1][3] = checkers[17];
-	Board[1][5] = checkers[18]; Board[1][7] = checkers[19];
-	Board[2][0] = checkers[12]; Board[2][2] = checkers[13];
-	Board[2][4] = checkers[14]; Board[2][6] = checkers[15];
+	Board[0][0] = checkers[28]; Board[0][2] = checkers[29];
+	Board[0][4] = checkers[30]; Board[0][6] = checkers[31];
+	Board[1][1] = checkers[24]; Board[1][3] = checkers[25];
+	Board[1][5] = checkers[26]; Board[1][7] = checkers[27];
+	Board[2][0] = checkers[20]; Board[2][2] = checkers[21];
+	Board[2][4] = checkers[22]; Board[2][6] = checkers[23];
+
+	Board[3][1] = checkers[16]; Board[3][3] = checkers[17];
+	Board[3][5] = checkers[18]; Board[3][7] = checkers[19];
+	Board[4][0] = checkers[12]; Board[4][2] = checkers[13];
+	Board[4][4] = checkers[14]; Board[4][6] = checkers[15];
 
 	Board[5][1] = checkers[8]; Board[5][3] = checkers[9];
 	Board[5][5] = checkers[10]; Board[5][7] = checkers[11];
@@ -222,7 +277,8 @@ int gdriver = DETECT, gmode;
 
 	// Your Turn
 start:
-
+	//setbkcolor(BLACK);
+	clrscr();
     //The edges of the board
 	int boardEdge[] = { w - 7, borderLen,
 		w - 7, borderLen + (8 * squareLen),
@@ -235,8 +291,9 @@ start:
 	int p3 = borderLen + squareLen;
 	int p4 = w - boardSideLen + squareLen;
 
-	//int *whiteSquares[32];
-	drawpoly(5, boardEdge);
+	setfillstyle(SOLID_FILL, BLACK);
+	fillpoly(5, boardEdge);
+	setfillstyle(SOLID_FILL, WHITE);
 
 	//Column A White Squares
 	int tempP2 = p2 + squareLen;
@@ -453,8 +510,9 @@ start:
 			goto start;
 		}
 		if(Board[Y-1][X-1].getColor() == 'x')
-		{  //swaps an invisible checker occupying empty space with player checker
-            swapCheckers(Board[X][Y], Board[--Y][--X]);
+		{  
+			Board[Y-1][X-1].setColor('r');
+			Board[Y][X].setColor('x');
 			goto done1;
 		}
 		if(Board[Y-1][X-1].getColor() == 'b')
@@ -500,7 +558,8 @@ start:
 		}
 		if(Board[Y-1][X+1].getColor() == 'x')
 		{
-            swapCheckers(Board[Y][X], Board[--Y][++X]);
+            Board[Y][X].setColor('x');
+			Board[--Y][++X].setColor('r');
 			goto done1;
 		}
 		if(Board[Y-1][X+1].getColor() == 'b')
@@ -546,7 +605,8 @@ start:
 		}
 		if(Board[Y+1][X-1].getColor() == 'x')
 		{
-            swapCheckers(Board[Y][X], Board[++Y][--X]);
+            Board[Y][X].setColor('x');
+			Board[++Y][--X].setColor('b');
 			goto done1;
 		}
 		if(Board[Y+1][X-1].getColor() == 'b')
@@ -592,7 +652,8 @@ start:
 		}
 		if(Board[Y+1][X+1].getColor() == 'x')
 		{
-	    swapCheckers(Board[Y][X], Board[++Y][++X]);
+	    Board[Y][X].setColor('x');
+		Board[++Y][++X].setColor('b');
 			goto done1;
 		}
 		if(Board[Y+1][X+1].getColor() == 'b')
@@ -622,126 +683,7 @@ start:
 	}
 
 done1:
-	//////////////////////////////////////////////////////////////////////////////
 
-    //The edges of the board
-      //	boardEdge = { w - 7, borderLen,
-	//	w - 7, borderLen + (8 * squareLen),
-	  //	w - (8 * squareLen) - 8, borderLen + (8 * squareLen),
-	    //	w - (8 * squareLen) - 8, borderLen,
-	      //	w - 7, borderLen };
-
-	p1 = w - boardSideLen;
-	p2 = borderLen;
-	p3 = borderLen + squareLen;
-	p4 = w - boardSideLen + squareLen;
-	clrscr();
-	//int *whiteSquares[32];
-	drawpoly(5, boardEdge);
-
-	//Column A White Squares
-	tempP2 = p2 + squareLen;
-	tempP3 = p3 + squareLen;
-	for (int kiiii = 0; kiiii < 4; kiiii++) {
-		int whiteSq[] = { p1, tempP2, p1, tempP3, p4, tempP3, p4, tempP2, p1, tempP2 };
-		fillpoly(5, whiteSq);
-		tempP2 = tempP2 + (2 * squareLen);
-		tempP3 = tempP3 + (2 * squareLen);
-	}
-
-	//Column B white squares
-	tempP1 = p1 + squareLen;
-	tempP4 = p4 + squareLen;
-	tempP2 = p2;
-	tempP3 = p3;
-	for (int kb = 0; kb < 4; kb++) {
-		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
-		fillpoly(5, whiteSq);
-		tempP2 = tempP2 + (2 * squareLen);
-		tempP3 = tempP3 + (2 * squareLen);
-	}
-
-
-	//Column C White Squares
-	tempP1 = p1 + (2 * squareLen);
-	tempP4 = p4 + (2 * squareLen);
-	tempP2 = p2 + squareLen;
-	tempP3 = p3 + squareLen;
-	for (int kii = 0; kii < 4; kii++) {
-		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
-		fillpoly(5, whiteSq);
-		tempP2 = tempP2 + (2 * squareLen);
-		tempP3 = tempP3 + (2 * squareLen);
-	}
-
-	//Column D white squares
-	tempP1 = p1 + (3 * squareLen);
-	tempP4 = p4 + (3 * squareLen);
-	tempP2 = p2;
-	tempP3 = p3;
-	for (int kbbb = 0; kbbb < 4; kbbb++) {
-		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
-		fillpoly(5, whiteSq);
-		tempP2 = tempP2 + (2 * squareLen);
-		tempP3 = tempP3 + (2 * squareLen);
-	}
-
-	//Column E White Squares
-	tempP1 = p1 + (4 * squareLen);
-	tempP4 = p4 + (4 * squareLen);
-	tempP2 = p2 + squareLen;
-	tempP3 = p3 + squareLen;
-	for (int kiii = 0; kiii < 4; kiii++) {
-		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
-		fillpoly(5, whiteSq);
-		tempP2 = tempP2 + (2 * squareLen);
-		tempP3 = tempP3 + (2 * squareLen);
-	}
-
-	//Column F white squares
-	tempP1 = p1 + (5 * squareLen);
-	tempP4 = p4 + (5 * squareLen);
-	tempP2 = p2;
-	tempP3 = p3;
-	for (int kxx = 0; kxx < 4; kxx++) {
-		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
-		fillpoly(5, whiteSq);
-		tempP2 = tempP2 + (2 * squareLen);
-		tempP3 = tempP3 + (2 * squareLen);
-	}
-
-	//Column G White Squares
-	tempP1 = p1 + (6 * squareLen);
-	tempP4 = p4 + (6 * squareLen);
-	tempP2 = p2 + squareLen;
-	tempP3 = p3 + squareLen;
-	for (int kx = 0; kx < 4; kx++) {
-		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
-		fillpoly(5, whiteSq);
-		tempP2 = tempP2 + (2 * squareLen);
-		tempP3 = tempP3 + (2 * squareLen);
-	}
-
-	//Column H white squares
-	tempP1 = p1 + (7 * squareLen);
-	tempP4 = p4 + (7 * squareLen);
-	tempP2 = p2;
-	tempP3 = p3;
-	for (int kbb = 0; kbb < 4; kbb++) {
-		int whiteSq[] = { tempP1, tempP2, tempP1, tempP3, tempP4, tempP3, tempP4, tempP2, tempP1, tempP2 };
-		fillpoly(5, whiteSq);
-		tempP2 = tempP2 + (2 * squareLen);
-		tempP3 = tempP3 + (2 * squareLen);
-	}
-
-
-    for (int kq = 0; kq < 8; kq++) {
-    	for (int ker = 0; ker < 8; ker++){
-			Board[kq][ker].draw();
-		}
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////
 	delay(500);
 	Plr = 0;
 	Opp = 0;
@@ -843,7 +785,8 @@ Again:
 		}
 		if(Board[Y-1][X-1].getColor() == 'x')
 		{
-            swapCheckers(Board[Y][X], Board[--Y][--X]);
+			Board[Y][X].setColor('x');
+			Board[--Y][--X].setColor('r');
 			goto done2;
 		}
 		if(Board[Y-1][X-1].getColor() == 'r')
@@ -885,7 +828,8 @@ Again:
 		}
 		if(Board[Y-1][X+1].getColor() == 'x')
 		{
-            swapCheckers(Board[Y][X], Board[--Y][++X]);
+            Board[Y][X].setColor('x');
+			Board[--Y][++X].setColor('r');
 			goto done2;
 		}
 		if(Board[Y-1][X+1].getColor() == 'r')
@@ -927,7 +871,8 @@ Again:
 		}
 		if(Board[Y+1][X-1].getColor() == 'x')
 		{
-            swapCheckers(Board[Y][X], Board[++Y][--X]);
+            Board[Y][X].setColor('x');
+			Board[++Y][--X].setColor('b');
 			goto done2;
 		}
 		if(Board[Y+1][X-1].getColor() == 'r')
@@ -969,7 +914,8 @@ Again:
 		}
 		if(Board[Y+1][X+1].getColor() == 'x')
 		{
-            swapCheckers(Board[Y][X], Board[++Y][++X]);
+            Board[Y][X].setColor('x');
+			Board[++Y][++X].setColor('b');
 			goto done2;
 		}
 		if(Board[Y+1][X+1].getColor() == 'r')
