@@ -864,12 +864,12 @@ Again:
 	{
 		goto Again;
 	}
-	dir = random(4) + 1;
-	if(Board[Y-1][X-1].getColor() == 'r' && X > 1 && Y > 1)
+	dir = random(2) + 2;
+	if(Board[Y-1][X-1].getColor() == 'r' && X > 1 && Y > 1 && Board[Y-1][X-1].getIsKing())
 	{
 		dir = 1;
 	}
-	if(Board[Y-1][X+1].getColor() == 'r' && X < 6 && Y > 1)
+	if(Board[Y-1][X+1].getColor() == 'r' && X < 6 && Y > 1 && Board[Y-1][X-1].getIsKing())
 	{
 		dir = 2;
 	}
@@ -881,6 +881,7 @@ Again:
 	{
 		dir = 4;
 	}
+
 
 	//North-West Diagonal
 	if(dir == 1)
